@@ -107,12 +107,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		addOption(option);
 
-		var option:Option = new Option('Scroll Playback Speed',
-			"If checked, the scroll speed gets affected by the playback rate.",
-			'noReset',
-			'bool');
-		addOption(option);
-
 		super();
 	}
 
