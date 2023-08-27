@@ -657,6 +657,7 @@ class PlayState extends MusicBeatState
 
 	function set_songSpeed(value:Float):Float
 	{
+		value *= (ClientPrefs.data.scrollPlaybackSpeed ? playbackRate : 1);
 		if(generatedMusic)
 		{
 			var ratio:Float = value / songSpeed; //funny word huh
@@ -1227,6 +1228,7 @@ class PlayState extends MusicBeatState
 			case "constant":
 				songSpeed = ClientPrefs.getGameplaySetting('scrollspeed');
 		}
+		songSpeed *= (ClientPrefs.data.scrollPlaybackSpeed ? playbackRate : 1);
 
 		var songData = SONG;
 		Conductor.bpm = songData.bpm;
@@ -2111,7 +2113,7 @@ class PlayState extends MusicBeatState
 					if(flValue1 == null) flValue1 = 1;
 					if(flValue2 == null) flValue2 = 0;
 
-					var newValue:Float = SONG.speed * ClientPrefs.getGameplaySetting('scrollspeed') * flValue1;
+					var newValue:Float = SONG.speed * (ClientPrefs.data.scrollPlaybackSpeed ? playbackRate : 1) * ClientPrefs.getGameplaySetting('scrollspeed') * flValue1;
 					if(flValue2 <= 0)
 						songSpeed = newValue;
 					else
