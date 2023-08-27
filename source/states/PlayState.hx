@@ -2113,7 +2113,7 @@ class PlayState extends MusicBeatState
 					if(flValue1 == null) flValue1 = 1;
 					if(flValue2 == null) flValue2 = 0;
 
-					var newValue:Float = SONG.speed * (ClientPrefs.data.scrollPlaybackSpeed ? playbackRate : 1) * ClientPrefs.getGameplaySetting('scrollspeed') * flValue1;
+					var newValue:Float = SONG.speed * ClientPrefs.getGameplaySetting('scrollspeed') * flValue1;
 					if(flValue2 <= 0)
 						songSpeed = newValue;
 					else

@@ -30,6 +30,7 @@ class FPS extends TextField
 		The current frame rate, expressed using frames-per-second
 	**/
 	public var currentFPS(default, null):Int;
+	public var memPeak(default, null):Float;
 
 	@:noCompletion private var cacheCount:Int;
 	@:noCompletion private var currentTime:Float;
@@ -86,7 +87,9 @@ class FPS extends TextField
 			
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			text += "\nMemory: " + memoryMegas + " MB";
+			if (memPeak < memoryMegas)
+				memPeak = memoryMegas;
+			text += "\nMB: " + memoryMegas + " / " + memPeak;
 			#end
 
 			textColor = 0xFFFFFFFF;
