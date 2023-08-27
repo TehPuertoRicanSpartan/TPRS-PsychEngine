@@ -166,7 +166,6 @@
 	<haxeflag name="--macro" value="include('my.pack')" />
 
 	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
-	<haxeflag name="-dce no"/>
 
 	<!-- _________________________________ Custom _______________________________ -->
 
