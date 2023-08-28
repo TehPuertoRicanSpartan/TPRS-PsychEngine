@@ -159,7 +159,7 @@ class LoadingState extends MusicBeatState
 		Paths.setCurrentLevel(directory);
 		trace('Setting asset folder to ' + directory);
 
-		#if (!LOADING_SCREEN && NO_PRELOAD_ALL)
+		#if (LOADING_SCREEN || NO_PRELOAD_ALL)
 		var loaded:Bool = false;
 		if (PlayState.SONG != null) {
 			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded('week_assets');
@@ -174,7 +174,7 @@ class LoadingState extends MusicBeatState
 		return target;
 	}
 	
-	#if (!LOADING_SCREEN && NO_PRELOAD_ALL)
+	#if (LOADING_SCREEN || NO_PRELOAD_ALL)
 	static function isSoundLoaded(path:String):Bool
 	{
 		trace(path);
