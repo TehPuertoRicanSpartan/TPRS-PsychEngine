@@ -63,14 +63,14 @@ class LoadingState extends MusicBeatState
 			{
 				callbacks = new MultiCallback(onLoad);
 				var introComplete = callbacks.add("introComplete");
-				if (PlayState.SONG != null) {
+				/*if (PlayState.SONG != null) {
 					checkLoadSong(getSongPath());
 					if (PlayState.SONG.needsVoices)
 						checkLoadSong(getVocalPath());
-				}
+				}*/
 				checkLibrary("shared");
 				if(directory != null && directory.length > 0 && directory != 'shared') {
-					checkLibrary('week_assets');
+					checkLibrary(directory);
 				}
 
 				var fadeTime = 0.5;
@@ -162,7 +162,7 @@ class LoadingState extends MusicBeatState
 		#if (LOADING_SCREEN || NO_PRELOAD_ALL)
 		var loaded:Bool = false;
 		if (PlayState.SONG != null) {
-			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded('week_assets');
+			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(directory);
 		}
 		
 		if (!loaded)
