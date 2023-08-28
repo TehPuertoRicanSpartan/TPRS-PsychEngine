@@ -9,6 +9,7 @@ import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;
 import lime.utils.AssetLibrary;
 import lime.utils.AssetManifest;
+import backend.CoolUtil;
 
 import backend.StageData;
 
@@ -42,7 +43,7 @@ class LoadingState extends MusicBeatState
 	var loadBar:FlxSprite;
 	override function create()
 	{
-		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xffcaff4d);
+		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xffffffff);
 		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
 		funkay = new FlxSprite(0, 0).loadGraphic(Paths.getPath('images/funkay.png', IMAGE));
@@ -52,6 +53,8 @@ class LoadingState extends MusicBeatState
 		funkay.antialiasing = ClientPrefs.data.antialiasing;
 		funkay.scrollFactor.set();
 		funkay.screenCenter();
+
+		bg.color = CoolUtil.dominantColor(funkay);
 
 		loadBar = new FlxSprite(0, FlxG.height - 20).makeGraphic(FlxG.width, 10, 0xffff16d2);
 		loadBar.screenCenter(X);
@@ -63,14 +66,14 @@ class LoadingState extends MusicBeatState
 			{
 				callbacks = new MultiCallback(onLoad);
 				var introComplete = callbacks.add("introComplete");
-				/*if (PlayState.SONG != null) {
+				if (PlayState.SONG != null) {
 					checkLoadSong(getSongPath());
 					if (PlayState.SONG.needsVoices)
 						checkLoadSong(getVocalPath());
-				}*/
+				}
 				checkLibrary("shared");
 				if(directory != null && directory.length > 0 && directory != 'shared') {
-					checkLibrary(directory);
+					checkLibrary('week_assets');
 				}
 
 				var fadeTime = 0.5;
@@ -162,7 +165,7 @@ class LoadingState extends MusicBeatState
 		#if (LOADING_SCREEN || NO_PRELOAD_ALL)
 		var loaded:Bool = false;
 		if (PlayState.SONG != null) {
-			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(directory);
+			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded('week_assets');
 		}
 		
 		if (!loaded)
