@@ -167,6 +167,7 @@
 
 	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
 	<haxeflag name="-dce" value="std"/>
+	<haxeflag name="--macro" value="macros.AdditionalClasses.add()" />
 
 	<!-- _________________________________ Custom _______________________________ -->
 
