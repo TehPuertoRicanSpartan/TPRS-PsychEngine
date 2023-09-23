@@ -16,7 +16,7 @@ import options.OptionsState;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var tprsForkBuildDate:String = '09/04/2023-2';
+	public static var tprsForkBuildDate:String = '09/23/2023-1';
 	public static var psychEngineVersion:String = '0.7.1h'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
