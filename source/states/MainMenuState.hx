@@ -16,7 +16,9 @@ import options.OptionsState;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var tprsForkBuildDate:String = '09/23/2023-1';
+	// this commit doesn't change anything, i just have to always remind myself how the date is formatted, just in case i forgot
+	// "b" is the number of the commit build per day btw
+	public static var tprsForkBuildDate:String = '10/02/2023-1'; // date format: mm/dd/yyyy-b
 	public static var psychEngineVersion:String = '0.7.1h'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
