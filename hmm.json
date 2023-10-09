@@ -52,8 +52,10 @@
     },
     {
       "name": "SScript",
-      "type": "haxelib",
-      "version": "5.2.0"
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/SScript-Guy/SScript-new"
     },
     {
       "name": "hxcpp-debug-server",
