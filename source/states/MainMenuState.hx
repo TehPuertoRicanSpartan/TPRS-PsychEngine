@@ -17,7 +17,7 @@ import options.OptionsState;
 class MainMenuState extends MusicBeatState
 {
 	// "b" is the number of the commit build per day
-	public static var tprsForkBuildDate:String = '10/08/2023-8'; // date format: mm/dd/yyyy-b
+	public static var tprsForkBuildDate:String = '10/08/2023-10'; // date format: mm/dd/yyyy-b
 	public static var psychEngineVersion:String = '0.7.1h'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
