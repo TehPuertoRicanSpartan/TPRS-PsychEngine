@@ -69,10 +69,12 @@ class TitleState extends MusicBeatState
 	#end
 
 	var mustUpdate:Bool = false;
+	var mustUpdateBuild:Bool = false;
 
 	var titleJSON:TitleData;
 
 	public static var updateVersion:String = '';
+	public static var updateBuild:String = '';
 
 	override public function create():Void
 	{
@@ -109,6 +111,30 @@ class TitleState extends MusicBeatState
 				if(updateVersion != curVersion) {
 					trace('versions arent matching!');
 					mustUpdate = true;
+				}
+			}
+
+			http.onError = function (error) {
+				trace('error: $error');
+			}
+
+			http.request();
+		}
+		#end
+
+		#if CHECK_FOR_BUILD_UPDATES
+		if(ClientPrefs.data.checkForUpdates && !closedState) {
+			trace('checking for update');
+			var http = new haxe.Http("https://raw.githubusercontent.com/TehPuertoRicanSpartan/TPRS-PsychEngine/base/gitBuildTPRS.txt");
+
+			http.onData = function (data:String)
+			{
+				updateBuild = data.split('\n')[0].trim();
+				var curBuild:String = MainMenuState.tprsForkBuildDate.trim();
+				trace('version online: ' + updateBuild + ', your version: ' + curBuild);
+				if(updateBuild != curBuild) {
+					trace('versions arent matching!');
+					mustUpdateBuild = true;
 				}
 			}
 
@@ -430,6 +456,8 @@ class TitleState extends MusicBeatState
 				{
 					if (mustUpdate) {
 						MusicBeatState.switchState(new OutdatedState());
+					} else if (mustUpdateBuild) {
+						MusicBeatState.switchState(new OutdatedBuildState());
 					} else {
 						MusicBeatState.switchState(new MainMenuState());
 					}
