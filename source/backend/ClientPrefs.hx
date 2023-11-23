@@ -65,6 +65,10 @@ class SaveVariables {
 		'practice' => false,
 		'botplay' => false,
 		'opponentplay' => false
+		//branch-exclusive options
+		'charttype' => 'standard';
+		'arrowlane' => 3;
+		'arrowlane2' => 2;
 	];
 
 	public var comboOffset:Array<Int> = [0, 0, 0, 0];

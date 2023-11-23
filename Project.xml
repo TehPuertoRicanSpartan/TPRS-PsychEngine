@@ -111,6 +111,8 @@
 	<haxelib name="SScript" if="HSCRIPT_ALLOWED"/>
 	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/>
 	<haxelib name="discord_rpc" if="desktop"/>
+	<haxelib name="seedyrng"/> <!--haxelib install seedyrng-->
+	<haxelib name="random"/> <!--haxelib install random-->
 	<haxelib name="tjson" />
 	<haxedef name="openflPos" />
 	<haxedef name="hscriptPos" />

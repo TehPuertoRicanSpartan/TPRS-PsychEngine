@@ -197,6 +197,9 @@ class PlayState extends MusicBeatState
 	public var instakillOnMiss:Bool = false;
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
+	public var chartType:String = "standard";
+	public var arrowLane:Int = 0;
+	public var arrowLane2:Int = 0;
 
 	public var botplaySine:Float = 0;
 	public var botplayTxt:FlxText;
@@ -292,6 +295,9 @@ class PlayState extends MusicBeatState
 		// Gameplay settings
 		healthGain = ClientPrefs.getGameplaySetting('healthgain');
 		healthLoss = ClientPrefs.getGameplaySetting('healthloss');
+		chartType = ClientPrefs.getGameplaySetting('charttype');
+		arrowLane = ClientPrefs.getGameplaySetting('arrowlane') - 1;
+		arrowLane2 = ClientPrefs.getGameplaySetting('arrowlane2') - 1;
 		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill');
 		practiceMode = ClientPrefs.getGameplaySetting('practice');
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay');
@@ -1213,6 +1219,7 @@ class PlayState extends MusicBeatState
 	}
 
 	var debugNum:Int = 0;
+	var stair:Int = 0;
 	private var noteTypes:Array<String> = [];
 	private var eventsPushed:Array<String> = [];
 	private function generateSong(dataPath:String):Void
@@ -1250,6 +1257,33 @@ class PlayState extends MusicBeatState
 		// NEW SHIT
 		noteData = songData.notes;
 
+		var random = null;
+		if (chartType == "chaos")
+		{
+			random = new Random(null, new seedyrng.Xorshift64Plus());
+			if (FlxG.random.bool(50))
+			{
+				if (FlxG.random.bool(50))
+				{
+					var seed = FlxG.random.int(1000000, 9999999); // seed in string numbers
+					FlxG.log.add('SEED (STRING): ' + seed);
+					random.setStringSeed(Std.string(seed));
+				}
+				else
+				{
+					var seed = Random.Random.string(7);
+					FlxG.log.add('SEED (STRING): ' + seed); // seed in string (alphabet edition)
+					random.setStringSeed(seed);
+				}
+			}
+			else
+			{
+				var seed = FlxG.random.int(1000000, 9999999); // seed in int
+				FlxG.log.add('SEED (INT): ' + seed);
+				random.seed = seed;
+			}
+		}
+
 		var file:String = Paths.json(songName + '/events');
 		#if MODS_ALLOWED
 		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file)) {
@@ -1273,6 +1307,49 @@ class PlayState extends MusicBeatState
 				if (songNotes[1] > 3)
 				{
 					gottaHitNote = !section.mustHitSection;
+				}
+
+				switch (chartType)
+				{
+					case "standard":
+						daNoteData = Std.int(songNotes[1] % 4);
+					case "flip":
+						if (gottaHitNote)
+							daNoteData = 3 - Std.int(songNotes[1] % 4); // B-SIDE FLIP???? Rozebud be damned lmao
+					case "chaos":
+						daNoteData = random.randomInt(0, 3);
+					case "one arrow":
+						daNoteData = arrowLane;
+					case "stair":
+						daNoteData = stair % 4;
+						stair++;
+					case "dual arrow":
+						switch (stair)
+						{
+							case 0:
+								daNoteData = arrowLane;
+								stair = 1;
+							case 1:
+								daNoteData = arrowLane2;
+								stair = 0;
+						}
+					case "dual chaos":
+						if (FlxG.random.bool(50))
+							daNoteData = arrowLane;
+						else
+							daNoteData = arrowLane2;
+					case "wave":
+						switch (stair % 6)
+						{
+							case 0 | 1 | 2 | 3:
+								daNoteData = stair % 6;
+							case 4:
+								daNoteData = 2;
+							case 5:
+								daNoteData = 1;
+						}
+
+						stair++;
 				}
 
 				var oldNote:Note;

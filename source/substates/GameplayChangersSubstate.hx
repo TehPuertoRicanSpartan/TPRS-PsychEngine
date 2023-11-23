@@ -62,6 +62,19 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		option.displayFormat = '%vX';
 		optionsArray.push(option);
 
+		var option:GameplayOption = new GameplayOption('Chart Type', 'charttype', 'string', 'standard', ["standard", "flip", "chaos", "one arrow", "dual arrow", "dual chaos", "stair", "wave"]);
+		optionsArray.push(option);
+
+		var option:GameplayOption = new GameplayOption('Arrow Lane 1', 'arrowlane', 'int', 3);
+		option.minValue = 1;
+		option.maxValue = 4;
+		optionsArray.push(option);
+
+		var option:GameplayOption = new GameplayOption('Arrow Lane 2', 'arrowlane2', 'int', 2);
+		option.minValue = 1;
+		option.maxValue = 4;
+		optionsArray.push(option);
+
 		var option:GameplayOption = new GameplayOption('Instakill on Miss', 'instakill', 'bool', false);
 		optionsArray.push(option);
 
